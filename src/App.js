@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import QRCode from 'react-qr-code';
 import "@fontsource/montserrat";
 
 // Backgrounds & logos
@@ -10,8 +9,6 @@ const cardImg = "/images/cards-image.png";
 
 // Landing Page
 function Landing() {
-  const siteUrl = window.location.origin;
-
   return (
     <div className="min-h-screen bg-[#F5F5F5] flex flex-col items-center justify-center relative px-4 py-8 font-montserrat">
       <img src={landingBg} alt="landing background" className="absolute inset-0 w-full h-full object-cover opacity-30" />
@@ -21,29 +18,30 @@ function Landing() {
         <p className="mt-2 text-gray-700">Select your office location before proceeding</p>
 
         <div className="mt-6 grid gap-4">
-          <Link to="/embakasi" className="block px-6 py-3 bg-[#FFD700] text-[#005BAC] font-semibold rounded-xl shadow hover:scale-105 transition-transform">Embakasi</Link>
-          <Link to="/kisii" className="block px-6 py-3 bg-[#005BAC] text-white font-semibold rounded-xl shadow hover:scale-105 transition-transform">Kisii Factory</Link>
+          <Link to="/warehouse" className="block px-6 py-3 bg-[#FFD700] text-[#005BAC] font-semibold rounded-xl shadow hover:scale-105 transition-transform">Warehouse</Link>
+          <Link to="/factory" className="block px-6 py-3 bg-[#005BAC] text-white font-semibold rounded-xl shadow hover:scale-105 transition-transform">Factory</Link>
         </div>
       </div>
     </div>
   );
 }
 
-// Embakasi Page
-function Embakasi() {
+// Shared Forms Component
+function FormsPage({ title }) {
   return (
     <div className="min-h-screen flex items-center justify-center relative font-montserrat">
       {/* Background */}
       <img
         src={landingBg}
-        alt="embakasi background"
+        alt={`${title} background`}
         className="absolute inset-0 w-full h-full object-cover opacity-30"
       />
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-16 bg-white/90 rounded-2xl shadow-2xl">
-        <h2 className="text-3xl font-bold text-center text-[#005BAC]">Select the form you would like to submit</h2>
+        <h2 className="text-3xl font-bold text-center text-[#005BAC]">{title} Forms</h2>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {/* EHS Induction Quiz */}
           <div
             className="bg-white rounded-xl shadow hover:shadow-xl hover:scale-105 transition cursor-pointer overflow-hidden"
             onClick={() =>
@@ -58,6 +56,7 @@ function Embakasi() {
             </div>
           </div>
 
+          {/* Near Miss Reporting */}
           <div
             className="bg-white rounded-xl shadow hover:shadow-xl hover:scale-105 transition cursor-pointer overflow-hidden"
             onClick={() =>
@@ -72,6 +71,7 @@ function Embakasi() {
             </div>
           </div>
 
+          {/* Behaviour Observations */}
           <div
             className="bg-white rounded-xl shadow hover:shadow-xl hover:scale-105 transition cursor-pointer overflow-hidden"
             onClick={() =>
@@ -97,39 +97,14 @@ function Embakasi() {
   );
 }
 
-// Kisii Page
-function Kisii() {
-  return (
-    <div className="min-h-screen flex items-center justify-center relative font-montserrat">
-      {/* Background */}
-      <img
-        src={landingBg}
-        alt="kisii background"
-        className="absolute inset-0 w-full h-full object-cover opacity-30"
-      />
-
-      {/* Content */}
-      <div className="relative z-10 text-center p-8 bg-white/90 rounded-2xl shadow-xl max-w-md">
-        <h2 className="text-2xl font-bold text-[#005BAC]">Kisii Factory</h2>
-        <p className="mt-2 text-gray-700">Forms coming soon.</p>
-        <div className="mt-6">
-          <Link to="/" className="text-sm text-gray-700 hover:underline">
-            ← Back to locations
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // Main App
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/embakasi" element={<Embakasi />} />
-        <Route path="/kisii" element={<Kisii />} />
+        <Route path="/warehouse" element={<FormsPage title="Warehouse" />} />
+        <Route path="/factory" element={<FormsPage title="Factory" />} />
       </Routes>
     </Router>
   );
